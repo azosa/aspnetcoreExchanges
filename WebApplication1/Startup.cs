@@ -8,7 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication1.Filters;
-
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Database;
 namespace WebApplication1
 {
     public class Startup
@@ -28,6 +29,8 @@ namespace WebApplication1
             });
 
             services.AddTransient<MyCustomActionFilter>();
+            services.AddDbContext<ExchangesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Exchaneges"))
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
